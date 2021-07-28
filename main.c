@@ -7,19 +7,28 @@
 
 void	atoi_main(void);
 void	calloc_main(void);
+void	strrchr_main(void);
 
-int	g_case_i = 1;
+void	detail(char *input, char *ex, char *output);
+
+int	g_case = 1;
 int	g_detail = 1;
 
-const char	*fname[2] =
+char	*input;
+char	*ex;
+char	*output;
+
+const char	*fname[] =
 {
 	"atoi",
-	"calloc"
+	"calloc",
+	"strrchr"
 };
 void	(*f_mains[])() = 
 {
 	atoi_main,
-	calloc_main
+	calloc_main,
+	strrchr_main
 };
 
 int	main(int argc, char const *argv[])
@@ -36,80 +45,112 @@ int	main(int argc, char const *argv[])
 	while (f_mains[i])
 	{
 		if (argc == 1 || strcmp(argv[1], fname[i]) == 0)
+		{
+			g_case = 1;
 			f_mains[i]();
+		}
 		i++;
 	}
 	return (0);
 }
 
-static void	check_atoi(const char *str, const char *description)
+void	check(char *description, int b)
 {
-	int	ex = atoi(str);
-	int	my = ft_atoi(str);
-	printf("CASE %d [%s] %s\n", g_case_i++, description, ex == my ? OK : KO);
+	printf("CASE %d [%s] %s\n", g_case++, description, b ? OK : KO);
 	if (g_detail)
 	{
-		printf(" INPUT	  : \"%s\"\n", str);
-		printf(" EXPECTED : %d\n", ex);
-		printf(" OUTPUT	  : %d\n\n", my);
+		detail(input, ex, output);
 	}
+}
+
+void	detail(char *input, char *ex, char *output)
+{
+	if (g_detail)
+	{
+		printf(" INPUT	  : %s\n", input);
+		printf(" EXPECTED : %s\n", ex);
+		printf(" OUTPUT	  : %s\n", output);
+		printf("\n");
+	}
+}
+
+int		ATOI(const char *str)
+{
+	input = malloc(50);
+	ex = malloc(50);
+	output = malloc(50);
+	sprintf(input, "%s", str);
+	sprintf(ex, "%d", atoi(str));
+	sprintf(output, "%d", ft_atoi(str));
+	return (ft_atoi(str) == atoi(str));
 }
 
 void	atoi_main(void)
 {
-	check_atoi(" &000123 ", "Conversion error");
-	check_atoi("         ", "Conversion error");
-	check_atoi(" 12&3456 ", "in is_space");
-	check_atoi(" 2147483646", "INT_MAX - 1");
-	check_atoi(" 2147483647", "INT_MAX");
-	check_atoi(" 2147483648", "INT_MAX + 1");
-	check_atoi(" 2147483649", "INT_MAX + 2");
-	check_atoi("-2147483647", "INT_MIN + 1");
-	check_atoi("-2147483648", "INT_MIN");
-	check_atoi("-2147483649", "INT_MIN - 1");
-	check_atoi(" 63410682753376583680", "");
-	check_atoi("-63410682753376583680", "");
-	check_atoi(" 9223372036854775805", "LONG_MAX - 2");
-	check_atoi(" 9223372036854775806", "LONG_MAX - 1");
-	check_atoi(" 9223372036854775807", "LONG_MAX");
-	check_atoi(" 9223372036854775808", "LONG_MAX + 1");
-	check_atoi(" 9223372036854775809", "LONG_MAX + 2");
-	check_atoi("-9223372036854775805", "LONG_MIN + 3");
-	check_atoi("-9223372036854775806", "LONG_MIN + 2");
-	check_atoi("-9223372036854775807", "LONG_MIN + 1");
-	check_atoi("-9223372036854775808", "LONG_MIN");
-	check_atoi("-9223372036854775809", "LONG_MIN - 1");
-	check_atoi("+0000000000123456789", "Zero padding");
+	check("Conversion error", ATOI(" &000123   "));
+	check("Conversion error", ATOI("           "));
+	check("in space",         ATOI(" 12&3456   "));
+	check("INT_MAX - 1",      ATOI(" 2147483646"));
+	check("INT_MAX",          ATOI(" 2147483647"));
+	check("INT_MAX + 1",      ATOI(" 2147483648"));
+	check("INT_MAX + 2",      ATOI(" 2147483649"));
+	check("INT_MIN + 1",      ATOI("-2147483647"));
+	check("INT_MIN",          ATOI("-2147483648"));
+	check("INT_MIN - 1",      ATOI("-2147483649"));
+	check("",                 ATOI(" 63410682753376583680"));
+	check("",                 ATOI("-63410682753376583680"));
+	check("LONG_MAX - 2",     ATOI(" 9223372036854775805"));
+	check("LONG_MAX - 1",     ATOI(" 9223372036854775806"));
+	check("LONG_MAX",         ATOI(" 9223372036854775807"));
+	check("LONG_MAX + 1",     ATOI(" 9223372036854775808"));
+	check("LONG_MAX + 2",     ATOI(" 9223372036854775809"));
+	check("LONG_MIN + 3",     ATOI("-9223372036854775805"));
+	check("LONG_MIN + 2",     ATOI("-9223372036854775806"));
+	check("LONG_MIN + 1",     ATOI("-9223372036854775807"));
+	check("LONG_MIN",         ATOI("-9223372036854775808"));
+	check("LONG_MIN - 1",     ATOI("-9223372036854775809"));
+	check("Zero padding",     ATOI("+0000000000123456789"));
 }
 
 #define CALLOC(count, size) check_calloc(count, size)
 
-static void	check_calloc(size_t count, size_t size, const char *description)
+static int	check_calloc(size_t count, size_t size)
 {
-	void	*ex = calloc(count, size);
-	void	*my = ft_calloc(count, size);
-	printf("CASE %d [%s] %s\n", g_case_i++, description, !ex == !my ? OK : KO);
-	if (g_detail) {
-		printf(" INPUT	  : !calloc(%zu, %zu)\n", count, size);
-		printf(" EXPECTED : %d\n", !ex);
-		printf(" OUTPUT	  : %d\n\n", !my);
-	}
-	free(ex);
-	free(my);
+	void	*tmpex = calloc(count, size);
+	void	*tmpmy = ft_calloc(count, size);
+
+	input = malloc(50);
+	ex = malloc(50);
+	output = malloc(50);
+	sprintf(input, "!calloc(%zu, %zu)", count, size);
+	sprintf(ex, "%d", !tmpex);
+	sprintf(output, "%d", !tmpmy);
+	free(tmpex);
+	free(tmpmy);
+	return (ex == output);
 }
 
 void	calloc_main(void)
 {
-	check_calloc(100, sizeof(long), "Normal input");
-	check_calloc(1, 0, "Zero");
-	check_calloc(SIZE_MAX, 1, "SIZE_MAX");
-	check_calloc(SIZE_MAX, sizeof(long), "Wrap around");
+	check("Normal input", !CALLOC(100, 8));
+	check("Zero",         !CALLOC(1, 0));
+	check("SIZE_MAX",     !CALLOC(SIZE_MAX, 1));
+	check("Wrap around",  !CALLOC(SIZE_MAX, 8));
 }
 
-#define STRRCHR(s, c) ft_strrchr(s, c) == strrchr(s, c)
+int	STRRCHR(const char *s, int c)
+{
+	input = malloc(256);
+	sprintf(input, "%s, %c", s, c);
+	output = ft_strrchr(s, c);
+	ex = strrchr(s, c);
+	return (ex == output);
+}
 
 void	strrchr_main(void)
 {
-	check("Match head", STRRCHR("42Tokyo", '4'));
-	check("Match i=2", STRRCHR("42Tokyo", 'T'));
+	check("Match head",   STRRCHR("42Tokyo", '4'));
+	check("Match i=2",    STRRCHR("42Tokyo", 'T'));
+	check("Zero",         STRRCHR("42Tokyo", 0));
+	check("Out of range", STRRCHR("42Tokyo", 257));
 }
