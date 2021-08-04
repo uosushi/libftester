@@ -28,37 +28,37 @@ make オプション DETAIL=1
 
 ## Functions
 - [x] test (debug)
-- [] memset
-- [] bzero
-- [] memcpy
-- [] memmove
-- [] memchr
-- [] memcmp
-- [] strlen
-- [] isalpha
-- [] isdigit
-- [] isalnum
-- [] isascii
-- [] isprint
-- [] toupper
-- [] tolower
-- [] strchr
+- [ ] memset
+- [ ] bzero
+- [ ] memcpy
+- [ ] memmove
+- [ ] memchr
+- [ ] memcmp
+- [ ] strlen
+- [ ] isalpha
+- [ ] isdigit
+- [ ] isalnum
+- [ ] isascii
+- [ ] isprint
+- [ ] toupper
+- [ ] tolower
+- [ ] strchr
 - [x] strrchr
-- [] strncmp
+- [ ] strncmp
 - [x] strlcpy
 - [x] strlcat
-- [] strnstr
+- [ ] strnstr
 - [x] atoi
 - [x] calloc
-- [] strdup
-- [] substr
-- [] strjoin
-- [] strtrim
+- [ ] strdup
+- [ ] substr
+- [ ] strjoin
+- [ ] strtrim
 - [x] split
-- [] itoa
-- [] strmapi
-- [] putchar_fd
-- [] putstr_fd
-- [] putendl_fd
-- [] putnbr_fd
-- [] striteri
+- [ ] itoa
+- [ ] strmapi
+- [ ] putchar_fd
+- [ ] putstr_fd
+- [ ] putendl_fd
+- [ ] putnbr_fd
+- [ ] striteri
