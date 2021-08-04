@@ -1,19 +1,64 @@
 # Libftester
-作成中です
+鋭意作成中ですが、利用できます
+Makefileを使わないバージョンは[こちら](https://github.com/uosushi/libftester/tree/a8923ef93477d8ead6ee9985e31af9bab7198617)へどうぞ。
 
-# 使用方法
+## Usage
+### Install
 ```
-gcc 必要なファイル.c main.c
-./a.out 関数名
+cd Libft
+git clone https://github.com/uosushi/libftester.git
 ```
-何も指定しなければ全て実行される  
-2つめの引数に`-d`をつけると詳細を表示しない
+### Run
+```
+cd Libftester
+```
+```bash
+# mandatory part をテスト
+make m
 
-# 使用例
+# bonus part をテスト
+make b
+
+# func_name に該当する関数のみをテスト（ft_はいらない）
+make func_name
+
+# テストケースと結果の詳細を表示する
+make オプション DETAIL=1
 ```
-gcc main.c ft_calloc.c ft_bzero.c ft_atoi.c ft_strlen.c ft_strrchr.c
-# detailなし
-./a.out strrchr -d
-# detailあり
-./a.out strrchr
-```
+
+## Functions
+- [x] test (debug)
+- [] memset
+- [] bzero
+- [] memcpy
+- [] memmove
+- [] memchr
+- [] memcmp
+- [] strlen
+- [] isalpha
+- [] isdigit
+- [] isalnum
+- [] isascii
+- [] isprint
+- [] toupper
+- [] tolower
+- [] strchr
+- [x] strrchr
+- [] strncmp
+- [x] strlcpy
+- [x] strlcat
+- [] strnstr
+- [x] atoi
+- [x] calloc
+- [] strdup
+- [] substr
+- [] strjoin
+- [] strtrim
+- [x] split
+- [] itoa
+- [] strmapi
+- [] putchar_fd
+- [] putstr_fd
+- [] putendl_fd
+- [] putnbr_fd
+- [] striteri
