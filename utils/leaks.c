@@ -67,7 +67,7 @@ void leak_detect_free(void *ptr){
 }
 
 /* 解放が行われていないメモリの情報を表示する関数 */
-void	leaks_check(int case_i)
+void	leaks_check(void)
 {
 	int	leak;
 	int	i;
@@ -80,7 +80,7 @@ void	leaks_check(int case_i)
 		if(mem_info[i].ptr != NULL)
 		{
 			/* 情報が消されていない構造体の ptr が指すメモリは解放忘れ */
-			printf(" %02d | \033[31mLKO\033[39m\n", case_i);
+			evaluation(LKO, "Memory leak");
 			printf("Error: Memory leak! (%s, line: %u)\n", mem_info[i].file, mem_info[i].line);
 			printf("[ address ] %p\n", mem_info[i].ptr);
 			printf("[  size   ] %u\n", (unsigned int)mem_info[i].size);
@@ -89,5 +89,5 @@ void	leaks_check(int case_i)
 		i++;
 	}
 	if (!leak)
-		printf(" %02d \033[32mLOK\033[39m\n", case_i);
+		evaluation(LOK, "Memory leak");
 }

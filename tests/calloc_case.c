@@ -9,20 +9,40 @@ static int	CALLOC(size_t count, size_t size)
 
 	memset(input, 0, 50);
 	memset(ex, 0, 50);
-	memset(output, 0, 50);
+	memset(ft, 0, 50);
 	sprintf(input, "!calloc(%zu, %zu)", count, size);
 	b = !tmpex == !tmpmy;
 	sprintf(ex, "%d", !tmpex);
-	sprintf(output, "%d", !tmpmy);
+	sprintf(ft, "%d", !tmpmy);
 	free(tmpex);
 	free(tmpmy);
 	return (b);
 }
 
+static int	CALLOC_ERRNO(size_t count, size_t size)
+{
+	void	*tmp;
+
+	memset(input, 0, 50);
+	memset(ex, 0, 50);
+	memset(ft, 0, 50);
+	// Cannot allocate memory ?
+	errno = 0;
+	tmp = calloc(count, size);
+	sprintf(ex, "%s", strerror(errno));
+	errno = 0;
+	tmp = ft_calloc(count, size);
+	sprintf(ft, "%s", strerror(errno));
+	return (!strcmp(ex, ft));
+}
+
 void	test_case(void)
 {
-	check("Normal input", CALLOC(100, 8));
+	check("Normal input", CALLOC(100, 2));
 	check("Zero",         CALLOC(1, 0));
 	check("SIZE_MAX",     CALLOC(SIZE_MAX, 1));
 	check("Wrap around",  CALLOC(SIZE_MAX, 8));
+	check("ERRNO ENOMEM", CALLOC_ERRNO(SIZE_MAX, 2));
+	check("ERRNO NORMAL", CALLOC_ERRNO(100, 2));
+	check("ERRNO ZERO",   CALLOC_ERRNO(1, 0));
 }

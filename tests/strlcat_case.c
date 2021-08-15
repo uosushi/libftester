@@ -10,14 +10,14 @@ static int	STRLCAT(char *dst, const char *src, size_t dstsize)
 
 	memset(input, 0, 50);
 	memset(ex, 0, 50);
-	memset(output, 0, 50);
+	memset(ft, 0, 50);
 	dst2 = strdup(dst);
 	sprintf(input, "(\"%s\", \"%s\", %zu)", dst, src, dstsize);
 	ex_src_len = strlcat(dst, src, dstsize);
 	my_src_len = ft_strlcat(dst2, src, dstsize);
 	b = (ex_src_len == my_src_len && !strcmp(dst2, dst));
 	sprintf(ex, "dst=\"%s\", return (%zu)", dst, ex_src_len);
-	sprintf(output, "dst=\"%s\", return (%zu)", dst2, my_src_len);
+	sprintf(ft, "dst=\"%s\", return (%zu)", dst2, my_src_len);
 	free(dst2);
 	return (b);
 }

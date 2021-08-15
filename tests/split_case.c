@@ -1,12 +1,31 @@
 #include "../utils/utils.h"
 #include "../utils/check.h"
 
-static int SPLIT(char const *s, char c)
+static int	split_cmp_array(char **expected, char **got)
 {
-	// char	**ft_split(char const *s, char c);
+	while (*expected || *got)
+	{
+		if (*got == NULL || strcmp(*expected, *got))
+		{
+			return (0);
+		}
+		expected++;
+		got++;
+	}
+	return (1);
+}
+
+static int	SPLIT(char const *s, char c, char **expected)
+{
+	char	**result;
+
+	result = ft_split(s, c);
+	return (split_cmp_array(expected, result));
 }
 
 void	test_case(void)
 {
-	check("SEGV PROTECT", SPLIT("\0aa\0bbb", '\0'));
+	char	**case1 = ((char *[1]){NULL});
+
+	check("SEGV PROTECT", SPLIT("\0aa\0bbb", '\0', case1));
 }

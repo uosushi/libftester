@@ -17,7 +17,7 @@ CFLAGS			= -Wall -Wextra -Werror
 UTILS				= $(addprefix utils/, leaks.c check.c)
 
 ifdef DETAIL
-OPTION = -d
+OPTION = -debug
 endif
 
 $(MANDATORY): %: mandatory_start
@@ -32,14 +32,17 @@ mandatory_start: update
 	@tput setaf 6
 	make -C $(LIBFT_PATH)
 	@tput setaf 4 && echo [Mandatory]
+	@tput setaf 8
 
 bonus_start: update
 	@tput setaf 6
 	make bonus -C $(LIBFT_PATH)
 	@tput setaf 5 && echo [Bonus]
+	@tput setaf 8
 
 update:
-	@git pull
+	@echo update
+	#@git pull
 
 m: $(MANDATORY)
 b: $(BONUS)

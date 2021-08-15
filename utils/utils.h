@@ -7,25 +7,25 @@
 void	leak_detect_init(void);
 void	*leaks_malloc(size_t, const char*, unsigned int);
 void	leak_detect_free(void*);
-void	leaks_check(int case_i);
+void	leaks_check(void);
 
 #define init leak_detect_init
 #define malloc(s) leaks_malloc(s, __FILE__, __LINE__)
 #define free leak_detect_free
-#define leaks(i) leaks_check(i)
+#define leaks leaks_check
 
-#define OK "\033[32mOK\033[39m"
-#define KO "\033[31mKO\033[39m"
-#define MOK "\033[32mMOK\033[39m"
-#define MKO "\033[31mMKO\033[39m"
-#define LOK "\033[32mLOK\033[39m"
-#define LKO "\033[31mLKO\033[39m"
-
-#define evaluation(eval, description) printf(" %02d | %s | %s\n", g_case++, eval, description);
+#define OK "\033[32m[OK]\033[39m"
+#define KO "\033[31m[KO]\033[39m"
+#define MOK "\033[32m[MOK]\033[39m"
+#define MKO "\033[31m[MKO]\033[39m"
+#define POK "\x1b[37m[PROTECTED]\033[39m"
+#define PKO "\033[31m[NO PROTECTED]\033[39m"
 
 extern int	g_case;
 extern int	g_debug;
 
+#define evaluation(eval, description) printf(" %02d %s %s\n", g_case++, eval, description);
+
 extern char	input[50];
 extern char	ex[50];
-extern char	output[50];
+extern char	ft[50];

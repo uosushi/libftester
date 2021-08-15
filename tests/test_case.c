@@ -10,6 +10,9 @@ void	test_case(void)
 	check("KO", 0);
 	mcheck("MOK", mem, 16 * sizeof(char));
 	mcheck("MKO", mem, 32 * sizeof(char));
-	leaks(g_case++);
+	leaks();
 	free(mem);
+	leaks();
+	protect(1);
+	protect(0);
 }
