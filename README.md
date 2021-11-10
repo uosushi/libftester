@@ -20,7 +20,7 @@ make func_name
 make func_name DETAIL=1
 ```
 
-## Functions
+### Functions
 - [x] test (debug)
 - [ ] memset
 - [ ] bzero
@@ -57,7 +57,7 @@ make func_name DETAIL=1
 - [ ] putnbr_fd
 - [ ] striteri
 
-# 未実装（エラーを起こすため実質まだ動かせないオプション）
+## 未実装（エラーを起こすため実質まだ動かせないオプション）
 ```bash
 # mandatory part をテスト
 make m
