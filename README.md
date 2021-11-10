@@ -10,20 +10,14 @@ git clone https://github.com/uosushi/libftester.git
 ```
 ### Run
 ```
-cd Libftester
+cd libftester
 ```
 ```bash
-# mandatory part をテスト
-make m
-
-# bonus part をテスト
-make b
-
 # func_name に該当する関数のみをテスト（ft_はいらない）
 make func_name
 
 # テストケースと結果の詳細を表示する
-make オプション DETAIL=1
+make func_name DETAIL=1
 ```
 
 ## Functions
@@ -62,3 +56,12 @@ make オプション DETAIL=1
 - [ ] putendl_fd
 - [ ] putnbr_fd
 - [ ] striteri
+
+# 未実装（エラーを起こすため実質まだ動かせないオプション）
+```bash
+# mandatory part をテスト
+make m
+
+# bonus part をテスト
+make b
+```
