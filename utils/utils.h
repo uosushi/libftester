@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <malloc/malloc.h>
+#include <errno.h>
 #include "../../libft.h"
 
 /* Memory leaks */
